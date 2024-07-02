@@ -14,7 +14,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //use the client app
-app.use(express.static(path.join(__dirname, "../frontend/index.html")));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.resic4t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -94,6 +94,11 @@ async function run() {
 }
 run().catch(console.dir);
 
+//Render client for any path
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -101,9 +106,4 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Twitter listening on port ${port}`);
   console.log(`${process.env.PORT}`);
-});
-
-//Render client for any path
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });

@@ -13,4 +13,7 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1000, // Set your desired limit in bytes
+  },
 });
