@@ -37,25 +37,25 @@ async function run() {
     //get
     app.get("/posts", async (req, res) => {
       const posts = (await postCollection.find({}).toArray()).reverse();
-      res.send(posts);
+      res.json(posts);
     });
 
     app.get("/user", async (req, res) => {
       const user = await userCollection.find({}).toArray();
-      res.send(user);
+      res.json(user);
     });
 
     app.get("/loggedInUser", async (req, res) => {
       const email = req.query.email;
       const user = await userCollection.find({ email: email }).toArray();
-      res.send(user);
+      res.json(user);
     });
     app.get("/userPost", async (req, res) => {
       const email = req.query.email;
       const post = (
         await postCollection.find({ email: email }).toArray()
       ).reverse();
-      res.send(post);
+      res.json(post);
     });
 
     //post
@@ -63,14 +63,14 @@ async function run() {
       const post = req.body;
       const result = await postCollection.insertOne(post);
       console.log(result);
-      res.send(result);
+      res.json(result);
     });
 
     app.post("/register", async (req, res) => {
       const user = req.body;
       const result = await userCollection.insertOne(user);
       console.log(result);
-      res.send(result);
+      res.json(result);
     });
 
     //patch
@@ -82,7 +82,7 @@ async function run() {
       const updateDoc = { $set: { ...profile, profilePhoto: profilePhoto } };
       const result = await userCollection.updateOne(filter, updateDoc, options);
       console.log(result.value);
-      res.send(result);
+      res.json(result);
     });
 
     console.log(
@@ -105,5 +105,5 @@ app.listen(port, () => {
 
 //Render client for any path
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/src/main.jsx", "index.html"));
 });
