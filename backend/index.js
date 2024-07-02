@@ -105,5 +105,5 @@ app.listen(port, () => {
 
 //Render client for any path
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/src/main.jsx"));
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
