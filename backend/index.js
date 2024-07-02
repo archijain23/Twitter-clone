@@ -1,20 +1,12 @@
-import dotenv from "dotenv";
-import express from "express";
-import { MongoClient, ServerApiVersion } from "mongodb";
-import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
-dotenv.config();
+require("dotenv").config();
+const express = require("express");
 const app = express();
-const port = process.env.PORT || 5000;
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const port = process.env.PORT;
+const cors = require("cors");
+
 app.use(cors());
 app.use(express.json());
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-//use the client app
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.resic4t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -37,7 +29,7 @@ async function run() {
     //get
     app.get("/posts", async (req, res) => {
       const posts = (await postCollection.find({}).toArray()).reverse();
-      res.json(posts);
+      res.send(posts);
     });
 
     app.get("/user", async (req, res) => {
@@ -93,11 +85,6 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
-//Render client for any path
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
-});
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
