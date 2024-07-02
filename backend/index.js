@@ -14,7 +14,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //use the client app
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.use(express.static(path.join(__dirname, "../frontend/index.html")));
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.resic4t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -42,20 +42,20 @@ async function run() {
 
     app.get("/user", async (req, res) => {
       const user = await userCollection.find({}).toArray();
-      res.json(user);
+      res.send(user);
     });
 
     app.get("/loggedInUser", async (req, res) => {
       const email = req.query.email;
       const user = await userCollection.find({ email: email }).toArray();
-      res.json(user);
+      res.send(user);
     });
     app.get("/userPost", async (req, res) => {
       const email = req.query.email;
       const post = (
         await postCollection.find({ email: email }).toArray()
       ).reverse();
-      res.json(post);
+      res.send(post);
     });
 
     //post
@@ -63,14 +63,14 @@ async function run() {
       const post = req.body;
       const result = await postCollection.insertOne(post);
       console.log(result);
-      res.json(result);
+      res.send(result);
     });
 
     app.post("/register", async (req, res) => {
       const user = req.body;
       const result = await userCollection.insertOne(user);
       console.log(result);
-      res.json(result);
+      res.send(result);
     });
 
     //patch
@@ -82,7 +82,7 @@ async function run() {
       const updateDoc = { $set: { ...profile, profilePhoto: profilePhoto } };
       const result = await userCollection.updateOne(filter, updateDoc, options);
       console.log(result.value);
-      res.json(result);
+      res.send(result);
     });
 
     console.log(
@@ -105,5 +105,5 @@ app.listen(port, () => {
 
 //Render client for any path
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/src/main.jsx", "index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/src/main.jsx"));
 });
