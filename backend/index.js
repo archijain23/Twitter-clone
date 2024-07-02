@@ -7,13 +7,7 @@ import { fileURLToPath } from "url";
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
-app.use(
-  cors({
-    origin: "http://localhost:5000",
-    methods: ["GET", "POST", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors());
 app.use(express.json());
 
 const __filename = fileURLToPath(import.meta.url);
