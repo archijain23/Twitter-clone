@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 app.use(
   cors({
-    origin: "http://localhost:3000", // or whatever your frontend URL is
+    origin: "http://localhost:5000",
     methods: ["GET", "POST", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
