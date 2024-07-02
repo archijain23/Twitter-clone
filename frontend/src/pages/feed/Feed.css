@@ -1,0 +1,6 @@
+.feed {
+  border-right: 1px solid rgb(83, 85, 85);
+  border-left: 1px solid rgb(83, 85, 85);
+  min-width: fit-content;
+  overflow-y: scroll;
+}

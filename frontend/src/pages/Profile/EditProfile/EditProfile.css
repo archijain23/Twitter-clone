@@ -1,0 +1,195 @@
+.Edit-profile-btn {
+  background-color: black;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 2rem;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.Edit-profile-btn:hover {
+  background-color: rgb(88, 80, 80);
+}
+
+.modal {
+  background-color: black !important;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+.modal::-webkit-scrollbar {
+  display: none;
+}
+
+.header {
+  margin-top: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 0;
+  z-index: 1;
+  background-color: black;
+  top: 0px;
+  position: sticky;
+  border-radius: 30px;
+}
+
+.header > .header-title {
+  font-size: 20px;
+  font-weight: 400;
+  margin-left: 10px;
+}
+
+.header > .save-btn {
+  margin-right: 10px;
+  color: black;
+  background-color: white;
+  padding: 5px 25px;
+  border-radius: 20px;
+}
+
+.save-btn:hover {
+  background-color: #e7e9ea;
+}
+
+.header__twittericon {
+  display: flex;
+  flex-direction: row;
+  z-index: 1;
+  background-color: black;
+  top: 0px;
+  position: sticky;
+  width: 30px;
+}
+
+.header__twittericon > .twitterIcon {
+  color: var(--twitter-color);
+  font-size: 35px !important;
+  margin-left: 250px;
+}
+
+.backgroundImage {
+  height: 200px;
+  width: 100%;
+  margin-top: 5px;
+  background-color: black;
+  margin-bottom: 5px;
+}
+
+.profileTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 15px;
+}
+
+.profileImage {
+  width: 134px;
+  height: 134px;
+  margin-top: -80px;
+  border-radius: 9999px;
+  padding: 0px;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileImage > .MuiAvatar-root {
+  width: 134px;
+  height: 134px;
+  margin-left: 10px;
+}
+
+.fill-content {
+  margin: 20px;
+}
+
+.fill-content > .text-field {
+  margin-bottom: 10px;
+  background-color: black !important;
+  color: white !important;
+  border: 1px solid gray !important;
+  border-radius: 10px;
+}
+.closeIcon {
+  color: white;
+}
+/* Make the label white */
+.fill-content > .text-field .MuiInputLabel-root {
+  color: gray !important;
+}
+
+/* Ensure the label stays white when focused */
+.fill-content > .text-field .MuiInputLabel-root.Mui-focused {
+  color: white !important;
+}
+/* Make sure the input text is also white */
+.fill-content > .text-field .MuiInputBase-input {
+  color: white !important;
+}
+
+.birthdate-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 30px;
+  margin-left: 20px;
+  border-top: 1px solid #2f3336;
+  border-bottom: 1px solid #2f3336;
+}
+
+.birthdate-section p {
+  font-weight: 600;
+  padding-left: 5px;
+  margin-bottom: -8px;
+}
+
+.birthdate-section text {
+  color: black !important;
+  cursor: pointer;
+  /* padding-bottom: 20px; */
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  justify-content: center;
+  color: black;
+}
+.text input {
+  color: black;
+}
+.text > .e-button {
+  margin: 10px;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+}
+.e-button:hover {
+  background-color: rgb(207, 206, 206) !important;
+}
+
+.last-section h2 {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.last-section > .last-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
+.last-section > .last-btn:hover {
+  background-color: rgb(83, 85, 85);
+}
