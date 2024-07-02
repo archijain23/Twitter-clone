@@ -11,11 +11,11 @@ const path = require("path");
 const fileURLToPath = require("url").fileURLToPath;
 
 //use the client app
-app.use(express.static(path.join(__dirname, "../frontend/index.html")));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 //Render client for any path
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.resic4t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
