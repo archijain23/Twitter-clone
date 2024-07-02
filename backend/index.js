@@ -4,10 +4,16 @@ import { MongoClient, ServerApiVersion } from "mongodb";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
-
+dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // or whatever your frontend URL is
+    methods: ["GET", "POST", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,11 +21,6 @@ const __dirname = path.dirname(__filename);
 
 //use the client app
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-//Render client for any path
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
-});
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.resic4t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -106,4 +107,9 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Twitter listening on port ${port}`);
   console.log(`${process.env.PORT}`);
+});
+
+//Render client for any path
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
