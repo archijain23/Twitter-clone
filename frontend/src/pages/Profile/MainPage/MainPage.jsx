@@ -21,7 +21,9 @@ const MainPage = ({ user }) => {
   const username = user?.email?.split("@")[0];
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/userPost?email=${user?.email}`)
+    fetch(
+      `https://twitter-clone-xylb.onrender.com/userPost?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);
@@ -52,7 +54,7 @@ const MainPage = ({ user }) => {
         if (url) {
           axios
             .patch(
-              `http://localhost:5000/userUpdates/${user?.email}`,
+              `https://twitter-clone-xylb.onrender.com/userUpdates/${user?.email}`,
               userCoverImage
             )
             .then(() => {
@@ -85,7 +87,7 @@ const MainPage = ({ user }) => {
         if (url) {
           axios
             .patch(
-              `http://localhost:5000/userUpdates/${user?.email}`,
+              `https://twitter-clone-xylb.onrender.com/userUpdates/${user?.email}`,
               userProfileImage
             )
             .then(() => {

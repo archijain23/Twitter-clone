@@ -7,7 +7,7 @@ export default defineConfig({
   sever: {
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
+        target: "https://twitter-clone-xylb.onrender.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
