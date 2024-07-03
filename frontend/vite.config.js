@@ -5,25 +5,14 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    proxy: {
-      "/api": {
-        target: "https://twitter-clone-xylb.onrender.com",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
+    open: "index.html",
+
     headers: {
       "Content-Type": "application/javascript",
     },
-    middlewareMode: "html",
+    host: true,
   },
   build: {
-    rollupOptions: {
-      output: {
-        assetFileNames: "assets/[name].[ext]",
-        chunkFileNames: "assets/[name].[hash].js",
-        entryFileNames: "assets/[name].[hash].js",
-      },
-    },
+    outDir: "dist",
   },
 });
