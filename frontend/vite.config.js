@@ -14,5 +14,9 @@ export default defineConfig({
   },
   build: {
     outDir: "dist",
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
+    sourcemap: true,
   },
 });
