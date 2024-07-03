@@ -48,9 +48,7 @@ function TweetBox() {
   const handleTweet = async (e) => {
     e.preventDefault();
     if (user.providerData[0].providerId === "password") {
-      fetch(
-        `https://twitter-clone-xylb.onrender.com/loggedInUser?email=${email}`
-      )
+      fetch(`/api/loggedInUser?email=${email}`)
         .then((res) => res.json())
         .then((data) => {
           setName(data[0]?.name);
@@ -72,7 +70,7 @@ function TweetBox() {
       setPost("");
       setImageURL("");
       // console.log(userPost);
-      fetch("https://twitter-clone-xylb.onrender.com/posts", {
+      fetch("/api/posts", {
         method: "POST",
         headers: {
           "Content-type": "application/json",

@@ -8,6 +8,15 @@ const port = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
+app.use(
+  express.static("public", {
+    setHeaders: (res, path, stat) => {
+      if (path.endsWith(".js")) {
+        res.set("Content-Type", "application/javascript");
+      }
+    },
+  })
+);
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.resic4t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 

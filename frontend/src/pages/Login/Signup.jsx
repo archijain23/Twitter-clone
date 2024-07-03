@@ -45,10 +45,7 @@ const Signup = () => {
       name: name,
       email: email,
     };
-    const data = axios.post(
-      `https://twitter-clone-xylb.onrender.com/register`,
-      user
-    );
+    const data = axios.post(`/api/register`, user);
   };
 
   const handleGoogleSignIn = () => {
