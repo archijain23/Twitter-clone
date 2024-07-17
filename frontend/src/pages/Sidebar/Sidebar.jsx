@@ -11,6 +11,9 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import LoyaltyIcon from "@mui/icons-material/Loyalty";
+import LanguageSelector from "../language/language-selector";
+
 import {
   Button,
   Divider,
@@ -25,11 +28,15 @@ import DoneIcon from "@mui/icons-material/Done";
 import { Link } from "react-router-dom";
 import CustomLink from "./CustomLink";
 import useLoggedInUser from "../../hooks/useLoggedInUser";
+import { use } from "i18next";
+import { useTranslation } from "react-i18next";
+import "../../i18n";
 
 const Sidebar = ({ handleLogout, user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
   const [loggedInUser, setLoggedInUser] = useLoggedInUser();
+  const { t } = useTranslation(["translation"]);
 
   const userProfilePic = loggedInUser?.profileImage
     ? loggedInUser?.profileImage
@@ -47,35 +54,42 @@ const Sidebar = ({ handleLogout, user }) => {
 
   return (
     <div className="sidebar">
-      <XIcon className="sidebar__TwitterIcon" />
+      {/*  <XIcon className="sidebar__TwitterIcon" /> */}
+      <LanguageSelector />
 
       <div className="sidebar__options">
         <CustomLink to="/home/feed">
-          <SidebarOption active Icon={HomeIcon} text="Home" />
+          <SidebarOption active Icon={HomeIcon} text={t("Home")} />
         </CustomLink>
         <CustomLink to="/home/explore">
-          <SidebarOption Icon={SearchIcon} text="Explore" />
+          <SidebarOption Icon={SearchIcon} text={t("Explore")} />
         </CustomLink>
         <CustomLink to="/home/notifications">
-          <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
+          <SidebarOption
+            Icon={NotificationsNoneIcon}
+            text={t("Notifications")}
+          />
         </CustomLink>
         <CustomLink to="/home/messages">
-          <SidebarOption Icon={MailOutlineIcon} text="Messages" />
+          <SidebarOption Icon={MailOutlineIcon} text={t("Messages")} />
         </CustomLink>
         <CustomLink to="/home/bookmarks">
-          <SidebarOption Icon={BookmarkBorderIcon} text="Bookmarks" />
+          <SidebarOption Icon={BookmarkBorderIcon} text={t("Bookmarks")} />
         </CustomLink>
         <CustomLink to="/home/lists">
-          <SidebarOption Icon={ListAltIcon} text="Lists" />
+          <SidebarOption Icon={ListAltIcon} text={t("Lists")} />
         </CustomLink>
         <CustomLink to="/home/profile">
-          <SidebarOption Icon={PermIdentityIcon} text="Profile" />
+          <SidebarOption Icon={PermIdentityIcon} text={t("Profile")} />
+        </CustomLink>
+        <CustomLink to="/home/subscribe">
+          <SidebarOption Icon={LoyaltyIcon} text={t("Premium")} />
         </CustomLink>
         <CustomLink to="/home/more">
-          <SidebarOption Icon={MoreHorizIcon} text="More" />
+          <SidebarOption Icon={MoreHorizIcon} text={t("More")} />
         </CustomLink>
         <Button variant="outlined" className="sidebar_tweet">
-          Tweet
+          {t("Tweet")}
         </Button>
 
         <div className="profile-info">

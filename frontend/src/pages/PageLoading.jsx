@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const PageLoading = () => {
+  const { t } = useTranslation();
   return (
     <div
       style={{
@@ -11,7 +13,7 @@ const PageLoading = () => {
       }}
     >
       <div>
-        <h3>Loading...</h3>
+        <h3>{t("Loading...")}</h3>
       </div>
     </div>
   );

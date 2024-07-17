@@ -6,6 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import { Outlet } from "react-router-dom";
 import useLoggedInUser from "../hooks/useLoggedInUser";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
   const user = useAuthState(auth);

@@ -1,0 +1,23 @@
+/* otp.css */
+.MuiModal-root .MuiBox-root #otp-modal-title {
+  margin-left: 20px;
+}
+
+.MuiModal-root .MuiBox-root .MuiTextField-root {
+  width: 360px;
+  height: 60px;
+  margin: 0 15px 15px 20px;
+}
+
+.MuiModal-root .MuiBox-root .MuiTextField-root input {
+  font-size: 20px;
+}
+
+.MuiModal-root .MuiBox-root .MuiButton-root {
+  color: black;
+  margin-left: 20px;
+}
+
+.MuiModal-root .MuiBox-root .MuiButton-root:hover {
+  background-color: lightgrey;
+}

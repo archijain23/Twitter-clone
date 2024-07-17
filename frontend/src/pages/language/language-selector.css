@@ -1,0 +1,18 @@
+.lang-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.lang-btn {
+  color: black;
+  background-color: rgb(83, 85, 85);
+  font-size: 18px;
+}
+.lang-btn:hover {
+  border: 1px solid rgb(74, 179, 221);
+}
+.closeIcon {
+  color: white;
+}

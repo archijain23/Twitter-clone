@@ -16,6 +16,7 @@ import Bookmarks from "./pages/Bookmarks/Bookmark.jsx";
 import List from "./pages/List/List.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import More from "./pages/More/More.jsx";
+import Subscribe from "./pages/subscribe/Subscribe.jsx";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
               <Route path="bookmarks" element={<Bookmarks />} />
               <Route path="lists" element={<List />} />
               <Route path="profile" element={<Profile />} />
+              <Route path="Subscribe" element={<Subscribe />} />
               <Route path="more" element={<More />} />
             </Route>
 

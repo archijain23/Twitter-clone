@@ -12,6 +12,8 @@ import useLoggedInUser from "../../../hooks/useLoggedInUser";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { use } from "i18next";
 
 const style = {
   position: "absolute",
@@ -28,6 +30,7 @@ const style = {
 function EditChild({ dob, setDob }) {
   const [loggedInUser] = useLoggedInUser();
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   const handleOpen = () => {
     setOpen(true);
@@ -39,7 +42,7 @@ function EditChild({ dob, setDob }) {
   return (
     <React.Fragment>
       <div className="birthdate-section" onClick={handleOpen}>
-        <span>Edit</span>
+        <span>{t("Edit")}</span>
       </div>
       <Modal
         hideBackdrop
@@ -50,12 +53,12 @@ function EditChild({ dob, setDob }) {
       >
         <Box sx={{ ...style, width: 300, height: 300 }}>
           <div className="text">
-            <h2>Edit date of birth?</h2>
+            <h2>{t("Edit date of birth?")}</h2>
             <p>
-              This can only be changed a few times.
+              {t("This can only be changed a few times.")}
               <br />
-              Make sure you enter the age of the <br />
-              person using the account.{" "}
+              {t("Make sure you enter the age of the")} <br />
+              {t("person using the account.")}{" "}
             </p>
             {/* <Button className='e-button'>Edit</Button> */}
             <input type="date" onChange={(e) => setDob(e.target.value)} />
@@ -65,7 +68,7 @@ function EditChild({ dob, setDob }) {
                 setOpen(false);
               }}
             >
-              Cancel
+              {t("Cancel")}
             </Button>
           </div>
         </Box>
@@ -81,6 +84,7 @@ export default function EditProfile({ user, loggedInUser }) {
   const [location, setLocation] = useState(loggedInUser?.location || "");
   const [website, setWebsite] = useState(loggedInUser?.website || "");
   const [dob, setDob] = useState(loggedInUser?.dob || "");
+  const { t } = useTranslation();
 
   const HandleSave = async () => {
     const editedInfo = {
@@ -92,7 +96,7 @@ export default function EditProfile({ user, loggedInUser }) {
     };
     if (editedInfo) {
       await axios.patch(
-        `https://twitter-clone-xylb.onrender.com/userUpdates/${user?.email}`,
+        `http://localhost:5000/userUpdates/${user?.email}`,
         editedInfo
       );
       setOpen(false);
@@ -116,7 +120,7 @@ export default function EditProfile({ user, loggedInUser }) {
         }}
         className="Edit-profile-btn"
       >
-        Edit profile
+        {t("Edit Profile")}
       </button>
 
       <Modal
@@ -133,9 +137,9 @@ export default function EditProfile({ user, loggedInUser }) {
             >
               <CloseIcon className="closeIcon" />
             </IconButton>
-            <h2 className="header-title"> Edit Profile</h2>
+            <h2 className="header-title"> {t("Edit Profile")}</h2>
             <button className="save-btn" onClick={HandleSave}>
-              Save
+              {t("Save")}
             </button>
           </div>
           {/* <div className="backgroundImage"></div>
@@ -148,7 +152,7 @@ export default function EditProfile({ user, loggedInUser }) {
             <TextField
               className="text-field"
               fullWidth
-              label="Name"
+              label={t("Name")}
               id="fullWidth"
               variant="filled"
               onChange={(e) => setName(e.target.value)}
@@ -157,7 +161,7 @@ export default function EditProfile({ user, loggedInUser }) {
             <TextField
               className="text-field"
               fullWidth
-              label="Bio"
+              label={t("Bio")}
               id="fullWidth"
               variant="filled"
               onChange={(e) => setBio(e.target.value)}
@@ -166,7 +170,7 @@ export default function EditProfile({ user, loggedInUser }) {
             <TextField
               className="text-field"
               fullWidth
-              label="Location"
+              label={"Location"}
               id="fullWidth"
               variant="filled"
               onChange={(e) => setLocation(e.target.value)}
@@ -175,7 +179,7 @@ export default function EditProfile({ user, loggedInUser }) {
             <TextField
               className="text-field"
               fullWidth
-              label="Website"
+              label={t("Website")}
               id="fullWidth"
               variant="filled"
               onChange={(e) => setWebsite(e.target.value)}
@@ -183,7 +187,7 @@ export default function EditProfile({ user, loggedInUser }) {
             />
           </form>
           <div className="birthdate-section">
-            <p>Birth Date</p>
+            <p>{t("Birth Date")}</p>
             <p>.</p>
             <EditChild dob={dob} setDob={setDob} />
           </div>
@@ -194,7 +198,7 @@ export default function EditProfile({ user, loggedInUser }) {
               <h2>{dob ? dob : "Add your date of birth"}</h2>
             )}
             <div className="last-btn">
-              <h2>Switch to professional </h2>
+              <h2>{t("Switch to professional")} </h2>
               <ChevronRightIcon />
             </div>
           </div>

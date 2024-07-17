@@ -6,10 +6,11 @@ import LockResetIcon from "@mui/icons-material/LockReset";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import AddLinkIcon from "@mui/icons-material/AddLink";
 import Post from "../../feed/Post/Post";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EditProfile from "../EditProfile/EditProfile";
 import axios from "axios";
 import useLoggedInUser from "../../../hooks/useLoggedInUser";
+import { useTranslation } from "react-i18next";
 
 const MainPage = ({ user }) => {
   const navigate = useNavigate();
@@ -18,12 +19,11 @@ const MainPage = ({ user }) => {
   // const [loggedInUser] = useLoggedInUser();
   const [loggedInUser, setLoggedInUser] = useLoggedInUser();
 
+  const { t } = useTranslation();
   const username = user?.email?.split("@")[0];
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch(
-      `https://twitter-clone-xylb.onrender.com/userPost?email=${user?.email}`
-    )
+    fetch(`http://localhost:5000/userPost?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);
@@ -54,7 +54,7 @@ const MainPage = ({ user }) => {
         if (url) {
           axios
             .patch(
-              `https://twitter-clone-xylb.onrender.com/userUpdates/${user?.email}`,
+              `http://localhost:5000/userUpdates/${user?.email}`,
               userCoverImage
             )
             .then(() => {
@@ -87,7 +87,7 @@ const MainPage = ({ user }) => {
         if (url) {
           axios
             .patch(
-              `https://twitter-clone-xylb.onrender.com/userUpdates/${user?.email}`,
+              `http://localhost:5000/userUpdates/${user?.email}`,
               userProfileImage
             )
             .then(() => {
@@ -198,7 +198,7 @@ const MainPage = ({ user }) => {
                     )}
                   </div>
                 </div>
-                <h4 className="tweetsText">Tweets</h4>
+                <h4 className="tweetsText">{"Tweets"}</h4>
                 <hr />
               </div>
               {posts.map((p) => (

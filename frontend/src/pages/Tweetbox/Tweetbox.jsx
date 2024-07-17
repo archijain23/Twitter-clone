@@ -7,6 +7,7 @@ import "./TweetBox.css";
 import useLoggedInUser from "../../hooks/useLoggedInUser";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import { useTranslation } from "react-i18next";
 
 function TweetBox() {
   const [post, setPost] = useState("");
@@ -15,6 +16,7 @@ function TweetBox() {
   const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState("");
   const [loggedInUser] = useLoggedInUser();
+  const { t } = useTranslation();
   // console.log(loggedInUser);
   const [user] = useAuthState(auth);
   const email = user?.email;
@@ -48,9 +50,7 @@ function TweetBox() {
   const handleTweet = async (e) => {
     e.preventDefault();
     if (user.providerData[0].providerId === "password") {
-      fetch(
-        `https://twitter-clone-xylb.onrender.com/loggedInUser?email=${email}`
-      )
+      fetch(`http://localhost:5000/loggedInUser?email=${email}`)
         .then((res) => res.json())
         .then((data) => {
           setName(data[0]?.name);
@@ -72,7 +72,7 @@ function TweetBox() {
       setPost("");
       setImageURL("");
       // console.log(userPost);
-      fetch("https://twitter-clone-xylb.onrender.com/posts", {
+      fetch("http://localhost:5000/posts", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -100,7 +100,7 @@ function TweetBox() {
           <input
             onChange={(e) => setPost(e.target.value)}
             value={post}
-            placeholder="What's happening?"
+            placeholder={t("What's happening?")}
             type="text"
             required
           />
@@ -108,9 +108,11 @@ function TweetBox() {
         <div className="imageIcon_tweetButton">
           <label htmlFor="image" className="imageIcon">
             {isLoading ? (
-              <p>Uploading image</p>
+              <p>{t("Uploading image")}</p>
             ) : (
-              <p>{imageURL ? "image uploaded" : <AddPhotoAlternateIcon />}</p>
+              <p>
+                {imageURL ? `{t("image uploaded")}` : <AddPhotoAlternateIcon />}
+              </p>
             )}
           </label>
           <input
@@ -120,7 +122,7 @@ function TweetBox() {
             onChange={handleUploadImage}
           />
           <Button className="tweetBox__tweetButton" type="submit">
-            Tweet
+            {t("Tweet")}
           </Button>
         </div>
       </form>

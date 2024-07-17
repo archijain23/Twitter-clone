@@ -3,7 +3,7 @@
   flex: 0;
   position: relative;
 
-  margin-top: 10px;
+  margin-top: 8px;
   padding-right: 300px;
   overflow-y: scroll;
 }
@@ -16,7 +16,7 @@
   font-size: 20px !important;
   color: var(--twitter-color);
   margin-left: 20px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .sidebar_tweet {
@@ -27,7 +27,7 @@
   text-transform: inherit !important;
   border-radius: 30px !important;
   height: 50px !important;
-  margin-top: 5px !important;
+  margin-top: 3px !important;
   width: 250px !important;
   margin-bottom: 10px !important;
 }
@@ -36,7 +36,7 @@
   display: flex !important;
   flex-direction: row;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 30px;
   margin-bottom: 10px;
   border-radius: 9999px;
   padding: 10px;

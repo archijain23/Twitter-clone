@@ -10,12 +10,22 @@ import GoogleButton from "react-google-button";
 import { Link } from "@mui/material";
 import "./login.css";
 import axios from "axios";
+import LanguageSelector from "../language/language-selector";
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import UAParser from "ua-parser-js";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState("");
+  const { t } = useTranslation();
+  const [phone, setPhone] = useState("");
+  const [otp, setOtp] = useState("");
+  const [confirmationResult, setConfirmationResult] = useState(null);
+  const [userInfo, setUserInfo] = useState({});
 
   const navigate = useNavigate();
   const [createUserWithEmailAndPassword, user, loading, error] =
@@ -23,6 +33,23 @@ const Signup = () => {
 
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
+
+  useEffect(() => {
+    const parser = new UAParser();
+    const result = parser.getResult();
+    const getIP = async () => {
+      const res = await axios.get("https://api.ipify.org?format=json");
+      return res.data.ip;
+    };
+    getIP().then((ip) => {
+      setUserInfo({
+        browser: result.browser.name,
+        os: result.os.name,
+        device: result.device.type || "desktop",
+        ip: ip,
+      });
+    });
+  }, []);
 
   if (user || googleUser) {
     navigate("/");
@@ -36,23 +63,92 @@ const Signup = () => {
     console.log("loading...");
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    createUserWithEmailAndPassword(email, password);
-
-    const user = {
-      username: username,
-      name: name,
-      email: email,
-    };
-    const data = axios.post(
-      `https://twitter-clone-xylb.onrender.com/register`,
-      user
+  const sendOtp = async () => {
+    const recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {});
+    const confirmation = await signInWithPhoneNumber(
+      auth,
+      phone,
+      recaptchaVerifier
     );
+    setConfirmationResult(confirmation);
   };
 
-  const handleGoogleSignIn = () => {
-    signInWithGoogle();
+  const verifyOtp = async () => {
+    if (otp.length === 6 && confirmationResult) {
+      try {
+        await confirmationResult.confirm(otp);
+        handleSubmit();
+      } catch (err) {
+        console.error("Error verifying OTP:", err);
+      }
+    } else {
+      alert("Please enter a valid 6-digit OTP");
+    }
+  };
+
+  const sendUserDataToBackend = async (user) => {
+    try {
+      const userData = {
+        username: user.email.split("@")[0], // Create a username from email
+        name: user.displayName || "Google User",
+        email: user.email,
+        photoURL: user.photoURL,
+        firebaseUid: user.uid,
+      };
+      const response = await axios.post(
+        "http://localhost:5000/register",
+        userData
+      );
+      console.log("User data sent to backend successfully", response.data);
+    } catch (error) {
+      console.error("Error sending user data to backend:", error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      if (!username || !name || !email || !password) {
+        setErrors("Please fill in all fields");
+        return;
+      }
+      if (userCredential.user) {
+        const user = {
+          username: username,
+          name: name,
+          email: email,
+          firebaseUid: userCredential.user.uid,
+          phone: phone,
+          browser: userInfo.browser,
+          os: userInfo.os,
+          device: userInfo.device,
+          ip: userInfo.ip,
+        };
+        const data = await axios.post(`http://localhost:5000/register`, user);
+        console.log(data);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error during sign up:", error);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithGoogle();
+      if (result.user) {
+        const data = await sendUserDataToBackend(result.user);
+        console.log(data);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error during Google sign-in:", error);
+    }
   };
   return (
     <div className="login-container">
@@ -61,13 +157,15 @@ const Signup = () => {
       </div>
       <div className="form-container">
         <XIcon />
-        <h2 className="heading">Happening now</h2>
-        <h3 className="heading1">Join Twitter today.</h3>
+
+        <h2 className="heading">{t("Happening now")}</h2>
+        <h3 className="heading1">{t("Join Twitter today.")}</h3>
+        {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             className="display-name"
-            placeholder="@username"
+            placeholder={t("@username")}
             onChange={(e) => {
               setUsername(e.target.value);
             }}
@@ -75,7 +173,7 @@ const Signup = () => {
           <input
             type="text"
             className="display-name"
-            placeholder=" Enter Full name"
+            placeholder={t(" Enter Full name")}
             onChange={(e) => {
               setName(e.target.value);
             }}
@@ -83,7 +181,7 @@ const Signup = () => {
           <input
             type="email"
             className="display-name"
-            placeholder="email address"
+            placeholder={t("email address")}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -91,14 +189,14 @@ const Signup = () => {
           <input
             type="password"
             className="display-name"
-            placeholder="Password"
+            placeholder={t("Password")}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
           />
           <div className="btn-login">
             <button type="submit" className="btn">
-              Sign up
+              {t("Sign up")}
             </button>
           </div>
         </form>
@@ -111,17 +209,17 @@ const Signup = () => {
           />
         </div>
         <div>
-          Already have an account?
+          {t(" Already have an account?")}
           <Link
             to="/login"
             style={{
               textDecoration: "none",
               color: "skyblue",
-              fontWeight: "600",
+              fontWeight: 600,
               marginLeft: "5px",
             }}
           >
-            Login
+            {t("Login")}
           </Link>
         </div>
       </div>
