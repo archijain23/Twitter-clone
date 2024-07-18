@@ -34,7 +34,7 @@ export default function SubscribeCard({
   const handlePayment = async () => {
     try {
       const res = await fetch(
-        `https://twitter-clone-xylb.onrender.com//payment/subscribe`,
+        `https://twitter-clone-xylb.onrender.com/payment/subscribe`,
         {
           method: "POST",
           headers: {
@@ -60,7 +60,7 @@ export default function SubscribeCard({
       };
       console.log("Sending update request with data:", user);
       const updateSubscription = await axios.post(
-        `https://twitter-clone-xylb.onrender.com//update-subscription`,
+        `https://twitter-clone-xylb.onrender.com/update-subscription`,
         user
       );
       console.log("Update subscription response:", updateSubscription.data);
@@ -83,7 +83,7 @@ export default function SubscribeCard({
 
         try {
           const res = await fetch(
-            `https://twitter-clone-xylb.onrender.com//payment/verify`,
+            `https://twitter-clone-xylb.onrender.com/payment/verify`,
             {
               method: "POST",
               headers: {

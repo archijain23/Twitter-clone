@@ -55,7 +55,7 @@ export default function LanguageSelector() {
       setUserEmail(email);
       try {
         const response = await axios.post(
-          "https://twitter-clone-xylb.onrender.com//api/otp/generate",
+          "https://twitter-clone-xylb.onrender.com/api/otp/generate",
           { email }
         );
         if (response.data.success) {
@@ -75,7 +75,7 @@ export default function LanguageSelector() {
   const handleOTPVerify = async (inputOTP) => {
     console.log("Verifying OTP for email:", userEmail);
     const response = await axios.post(
-      "https://twitter-clone-xylb.onrender.com//api/otp/verify",
+      "https://twitter-clone-xylb.onrender.com/api/otp/verify",
       {
         email: userEmail,
         otp: inputOTP,

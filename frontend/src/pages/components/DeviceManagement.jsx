@@ -11,7 +11,7 @@ const DeviceManagement = () => {
     const fetchDevices = async () => {
       try {
         const response = await axios.get(
-          "https://twitter-clone-xylb.onrender.com//user/devices"
+          "https://twitter-clone-xylb.onrender.com/user/devices"
         );
         setDevices(response.data.devices);
       } catch (error) {
@@ -31,7 +31,7 @@ const DeviceManagement = () => {
 
     try {
       await axios.delete(
-        `https://twitter-clone-xylb.onrender.com//user/devices/${deviceId}`
+        `https://twitter-clone-xylb.onrender.com/user/devices/${deviceId}`
       );
       setDevices(devices.filter((device) => device._id !== deviceId));
     } catch (error) {

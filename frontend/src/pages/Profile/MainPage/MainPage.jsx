@@ -24,7 +24,7 @@ const MainPage = ({ user }) => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     fetch(
-      `https://twitter-clone-xylb.onrender.com//userPost?email=${user?.email}`
+      `https://twitter-clone-xylb.onrender.com/userPost?email=${user?.email}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -56,7 +56,7 @@ const MainPage = ({ user }) => {
         if (url) {
           axios
             .patch(
-              `https://twitter-clone-xylb.onrender.com//userUpdates/${user?.email}`,
+              `https://twitter-clone-xylb.onrender.com/userUpdates/${user?.email}`,
               userCoverImage
             )
             .then(() => {
@@ -89,7 +89,7 @@ const MainPage = ({ user }) => {
         if (url) {
           axios
             .patch(
-              `https://twitter-clone-xylb.onrender.com//userUpdates/${user?.email}`,
+              `https://twitter-clone-xylb.onrender.com/userUpdates/${user?.email}`,
               userProfileImage
             )
             .then(() => {

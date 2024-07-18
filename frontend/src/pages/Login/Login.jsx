@@ -32,7 +32,7 @@ const Login = () => {
     console.log(email, password);
     signInWithEmailAndPassword(email, password);
     await axios.patch(
-      `https://twitter-clone-xylb.onrender.com//userUpdates/${email}`,
+      `https://twitter-clone-xylb.onrender.com/userUpdates/${email}`,
       {
         email: email,
       }
@@ -73,7 +73,7 @@ const Login = () => {
       console.log("Sending user data to backend:", userData);
 
       const response = await axios.post(
-        "https://twitter-clone-xylb.onrender.com//register",
+        "https://twitter-clone-xylb.onrender.com/register",
         userData
       );
       console.log("Full response from backend:", response);
