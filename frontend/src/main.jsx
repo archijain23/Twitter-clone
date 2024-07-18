@@ -5,6 +5,8 @@ import "./index.css";
 import "./i18n.js";
 import { Buffer } from "buffer";
 import process from "process";
+import $script from "scriptjs";
+window.$script = $script;
 
 window.Buffer = Buffer;
 window.process = process;

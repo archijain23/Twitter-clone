@@ -16,6 +16,9 @@
         if (module === "ua-parser-js") {
           return window.UAParser;
         }
+        if (module === "scriptjs") {
+          return window.$script;
+        }
         throw new Error("Module " + module + " not found");
       };
     </script>

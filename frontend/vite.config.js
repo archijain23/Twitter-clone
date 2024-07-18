@@ -1,12 +1,14 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
+import commonjs from "vite-plugin-commonjs";
 
 export default defineConfig({
   plugins: [
     react(),
+    commonjs(),
     nodePolyfills({
-      include: ["buffer", "process", "util", "stream", "ua-parser-js"],
+      include: ["buffer", "process", "util", "stream"],
     }),
   ],
   define: {
@@ -21,11 +23,18 @@ export default defineConfig({
     },
   },
   build: {
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
     rollupOptions: {
-      external: ["fsevents", "ua-parser-js"],
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom", "react-router-dom", "scriptjs"],
+        },
+      },
     },
   },
   optimizeDeps: {
-    include: ["ua-parser-js"],
+    include: ["react-firebase-hooks", "firebase/auth", "scriptjs"],
   },
 });
