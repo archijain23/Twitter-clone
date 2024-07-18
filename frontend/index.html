@@ -9,6 +9,18 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      window.require = function (module) {
+        if (module === "process/browser") {
+          return {
+            nextTick: function (fn) {
+              setTimeout(fn, 0);
+            },
+          };
+        }
+        throw new Error("Module " + module + " not found");
+      };
+    </script>
     <script type="module" src="/src/main.jsx"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   </body>
