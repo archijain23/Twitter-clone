@@ -16,10 +16,10 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      process: "process/browser",
       util: "util/",
       stream: "stream-browserify",
       buffer: "buffer/",
-      process: "process/browser",
     },
   },
   define: {
@@ -41,6 +41,9 @@ export default defineConfig({
     },
   },
   build: {
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
     rollupOptions: {
       plugins: [
         inject({
