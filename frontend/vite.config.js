@@ -14,11 +14,11 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      // Polyfills for Node.js modules
-      util: "rollup-plugin-node-builtins",
-      stream: "rollup-plugin-node-builtins",
-      buffer: "rollup-plugin-node-globals",
-      process: "rollup-plugin-node-globals",
+      // Correct polyfills for Node.js modules
+      util: "util/",
+      stream: "stream-browserify",
+      buffer: "buffer/",
+      process: "process/browser",
     },
   },
   optimizeDeps: {
