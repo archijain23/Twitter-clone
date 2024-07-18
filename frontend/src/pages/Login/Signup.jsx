@@ -13,7 +13,6 @@ import axios from "axios";
 import LanguageSelector from "../language/language-selector";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import UAParser from "ua-parser-js";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -33,23 +32,6 @@ const Signup = () => {
 
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
-
-  useEffect(() => {
-    const parser = new UAParser();
-    const result = parser.getResult();
-    const getIP = async () => {
-      const res = await axios.get("https://api.ipify.org?format=json");
-      return res.data.ip;
-    };
-    getIP().then((ip) => {
-      setUserInfo({
-        browser: result.browser.name,
-        os: result.os.name,
-        device: result.device.type || "desktop",
-        ip: ip,
-      });
-    });
-  }, []);
 
   if (user || googleUser) {
     navigate("/");
