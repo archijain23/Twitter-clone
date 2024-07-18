@@ -1,65 +1,31 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { viteCommonjs } from "@originjs/vite-plugin-commonjs";
-import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
-import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfill";
-import inject from "@rollup/plugin-inject";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig({
   plugins: [
     react(),
-    viteCommonjs(),
-    inject({
-      Buffer: ["buffer", "Buffer"],
-      process: "process/browser",
+    nodePolyfills({
+      include: ["buffer", "process", "util", "stream", "ua-parser-js"],
     }),
   ],
-  resolve: {
-    alias: {
-      process: "process/browser",
-      util: "util/",
-      stream: "stream-browserify",
-      buffer: "buffer/",
-    },
-  },
   define: {
     "process.env": {},
     global: "globalThis",
   },
-  optimizeDeps: {
-    esbuildOptions: {
-      define: {
-        global: "globalThis",
-      },
-      plugins: [
-        NodeGlobalsPolyfillPlugin({
-          process: true,
-          buffer: true,
-        }),
-        NodeModulesPolyfillPlugin(),
-      ],
+  resolve: {
+    alias: {
+      process: "process/browser",
+      stream: "stream-browserify",
+      util: "util",
     },
   },
   build: {
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
     rollupOptions: {
-      plugins: [
-        inject({
-          process: "process/browser",
-          Buffer: ["buffer", "Buffer"],
-        }),
-      ],
+      external: ["fsevents", "ua-parser-js"],
     },
   },
-  server: {
-    proxy: {
-      "/api": {
-        target: "https://twitter-clone-xylb.onrender.com",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
+  optimizeDeps: {
+    include: ["ua-parser-js"],
   },
 });
