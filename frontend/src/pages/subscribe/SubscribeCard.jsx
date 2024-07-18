@@ -33,17 +33,20 @@ export default function SubscribeCard({
   // handlePayment Function
   const handlePayment = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/payment/subscribe`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          amount,
-          period: selectedPeriod,
-          userId: loggedInUser._id,
-        }),
-      });
+      const res = await fetch(
+        `https://twitter-clone-xylb.onrender.com//payment/subscribe`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            amount,
+            period: selectedPeriod,
+            userId: loggedInUser._id,
+          }),
+        }
+      );
 
       const data = await res.json();
       console.log(data);
@@ -57,7 +60,7 @@ export default function SubscribeCard({
       };
       console.log("Sending update request with data:", user);
       const updateSubscription = await axios.post(
-        `http://localhost:5000/update-subscription`,
+        `https://twitter-clone-xylb.onrender.com//update-subscription`,
         user
       );
       console.log("Update subscription response:", updateSubscription.data);
@@ -79,18 +82,21 @@ export default function SubscribeCard({
         console.log("response", response);
 
         try {
-          const res = await fetch(`http://localhost:5000/payment/verify`, {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              userId: loggedInUser._id,
-            }),
-          });
+          const res = await fetch(
+            `https://twitter-clone-xylb.onrender.com//payment/verify`,
+            {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                userId: loggedInUser._id,
+              }),
+            }
+          );
 
           const verifyData = await res.json();
           console.log(verifyData);

@@ -8,6 +8,13 @@ import payment from "./routes/payment.js";
 import { sendReceiptEmail } from "./services/emailService.js";
 import otpRoutes from "./routes/otproutes.js";
 
+import path from "path";
+import { fileURLToPath } from "url";
+
+//resolving dirname for ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 dotenv.config();
 const app = express();
 const port = process.env.PORT;
@@ -23,6 +30,11 @@ app.use(
     },
   })
 );
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
 
 connectToMongo();
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.resic4t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;

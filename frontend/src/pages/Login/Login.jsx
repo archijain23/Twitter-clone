@@ -31,9 +31,12 @@ const Login = () => {
     e.preventDefault();
     console.log(email, password);
     signInWithEmailAndPassword(email, password);
-    await axios.patch(`http://localhost:5000/userUpdates/${email}`, {
-      email: email,
-    });
+    await axios.patch(
+      `https://twitter-clone-xylb.onrender.com//userUpdates/${email}`,
+      {
+        email: email,
+      }
+    );
   };
 
   const handleGoogleSignIn = async () => {
@@ -70,7 +73,7 @@ const Login = () => {
       console.log("Sending user data to backend:", userData);
 
       const response = await axios.post(
-        "http://localhost:5000/register",
+        "https://twitter-clone-xylb.onrender.com//register",
         userData
       );
       console.log("Full response from backend:", response);
