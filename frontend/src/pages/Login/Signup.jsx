@@ -63,29 +63,6 @@ const Signup = () => {
     console.log("loading...");
   }
 
-  const sendOtp = async () => {
-    const recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {});
-    const confirmation = await signInWithPhoneNumber(
-      auth,
-      phone,
-      recaptchaVerifier
-    );
-    setConfirmationResult(confirmation);
-  };
-
-  const verifyOtp = async () => {
-    if (otp.length === 6 && confirmationResult) {
-      try {
-        await confirmationResult.confirm(otp);
-        handleSubmit();
-      } catch (err) {
-        console.error("Error verifying OTP:", err);
-      }
-    } else {
-      alert("Please enter a valid 6-digit OTP");
-    }
-  };
-
   const sendUserDataToBackend = async (user) => {
     try {
       const userData = {
