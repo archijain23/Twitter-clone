@@ -1,7 +1,6 @@
 declare global {
   interface Window {
-    process: any;
-    Buffer: typeof Buffer;
+    require: (module: string) => any;
   }
 }
 

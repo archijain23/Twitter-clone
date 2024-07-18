@@ -12,8 +12,13 @@
     <script>
       window.global = window;
       window.process = { env: {} };
+      window.require = function (module) {
+        if (module === "ua-parser-js") {
+          return window.UAParser;
+        }
+        throw new Error("Module " + module + " not found");
+      };
     </script>
-
     <script type="module" src="/src/main.jsx"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   </body>
