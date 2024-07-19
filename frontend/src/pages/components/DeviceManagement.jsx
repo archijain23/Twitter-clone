@@ -10,9 +10,7 @@ const DeviceManagement = () => {
   useEffect(() => {
     const fetchDevices = async () => {
       try {
-        const response = await axios.get(
-          "https://twitter-clone-xylb.onrender.com/user/devices"
-        );
+        const response = await axios.get("http://localhost:5000/user/devices");
         setDevices(response.data.devices);
       } catch (error) {
         console.error("Error fetching devices:", error);
@@ -30,9 +28,7 @@ const DeviceManagement = () => {
     }
 
     try {
-      await axios.delete(
-        `https://twitter-clone-xylb.onrender.com/user/devices/${deviceId}`
-      );
+      await axios.delete(`http://localhost:5000/user/devices/${deviceId}`);
       setDevices(devices.filter((device) => device._id !== deviceId));
     } catch (error) {
       console.error("Error removing device:", error);

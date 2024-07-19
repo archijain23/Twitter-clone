@@ -35,12 +35,14 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ["react-firebase-hooks", "firebase/auth", "scriptjs"],
+    include: ["react-firebase-hooks/auth", "firebase/auth", "scriptjs"],
   },
-  proxy: {
-    "/api": {
-      target: "https://twitter-clone-xylb.onrender.com",
-      changeOrigin: true,
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });

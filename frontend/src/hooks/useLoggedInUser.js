@@ -10,8 +10,18 @@ const useLoggedInUser = () => {
   const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
-    fetch(`https://twitter-clone-xylb.onrender.com/loggedInUser?email=${email}`)
-      .then((res) => res.json())
+    fetch(`http://localhost:5000/loggedInUser?email=${email}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => {
         setLoggedInUser(data[0]);
       });

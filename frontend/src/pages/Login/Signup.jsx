@@ -55,7 +55,7 @@ const Signup = () => {
         firebaseUid: user.uid,
       };
       const response = await axios.post(
-        "https://twitter-clone-xylb.onrender.com/register",
+        "http://localhost:5000/register",
         userData
       );
       console.log("User data sent to backend successfully", response.data);
@@ -88,10 +88,7 @@ const Signup = () => {
           device: userInfo.device,
           ip: userInfo.ip,
         };
-        const data = await axios.post(
-          `https://twitter-clone-xylb.onrender.com/register`,
-          user
-        );
+        const data = await axios.post(`http://localhost:5000/register`, user);
         console.log(data);
         navigate("/");
       }

@@ -55,7 +55,7 @@ export default function LanguageSelector() {
       setUserEmail(email);
       try {
         const response = await axios.post(
-          "https://twitter-clone-xylb.onrender.com/api/otp/generate",
+          "http://localhost:5000/api/otp/generate",
           { email }
         );
         if (response.data.success) {
@@ -74,13 +74,10 @@ export default function LanguageSelector() {
 
   const handleOTPVerify = async (inputOTP) => {
     console.log("Verifying OTP for email:", userEmail);
-    const response = await axios.post(
-      "https://twitter-clone-xylb.onrender.com/api/otp/verify",
-      {
-        email: userEmail,
-        otp: inputOTP,
-      }
-    );
+    const response = await axios.post("http://localhost:5000/api/otp/verify", {
+      email: userEmail,
+      otp: inputOTP,
+    });
     if (response.data.success) {
       i18n.changeLanguage(pendingLanguage);
       setIsOTPModalOpen(false);

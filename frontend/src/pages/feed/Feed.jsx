@@ -9,12 +9,17 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("https://twitter-clone-xylb.onrender.com/posts")
+    fetch("http://localhost:5000/posts", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);
       });
-  }, [posts]);
+  }, []);
 
   return (
     <div className="feed">

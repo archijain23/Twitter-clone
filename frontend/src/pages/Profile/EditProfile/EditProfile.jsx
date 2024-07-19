@@ -96,7 +96,7 @@ export default function EditProfile({ user, loggedInUser }) {
     };
     if (editedInfo) {
       await axios.patch(
-        `https://twitter-clone-xylb.onrender.com/userUpdates/${user?.email}`,
+        `http://localhost:5000/userUpdates/${user?.email}`,
         editedInfo
       );
       setOpen(false);

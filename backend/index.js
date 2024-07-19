@@ -32,10 +32,6 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
-});
-
 connectToMongo();
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.resic4t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -60,25 +56,27 @@ async function run() {
     //get
     app.get("/posts", async (req, res) => {
       const posts = (await postCollection.find({}).toArray()).reverse();
-      res.send(posts);
+      res.json(posts);
     });
 
     app.get("/user", async (req, res) => {
       const user = await userCollection.find({}).toArray();
-      res.send(user);
+      res.json(user);
     });
 
     app.get("/loggedInUser", async (req, res) => {
       const email = req.query.email;
       const user = await userCollection.find({ email: email }).toArray();
-      res.send(user);
+      res.setHeader("Content-Type", "application/json");
+      res.json(user);
     });
     app.get("/userPost", async (req, res) => {
       const email = req.query.email;
       const post = (
         await postCollection.find({ email: email }).toArray()
       ).reverse();
-      res.send(post);
+      res.setHeader("Content-Type", "application/json");
+      res.json(post);
     });
 
     //post
@@ -86,7 +84,7 @@ async function run() {
       const post = req.body;
       const result = await postCollection.insertOne(post);
       console.log(result);
-      res.send(result);
+      res.json(result);
     });
 
     app.post("/register", async (req, res) => {
@@ -210,7 +208,7 @@ async function run() {
       };
       const result = await userCollection.updateOne(filter, updateDoc, options);
       console.log(result.value);
-      res.send(result);
+      res.json(result);
     });
 
     console.log(
@@ -224,6 +222,9 @@ run().catch(console.dir);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
+});
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist"));
 });
 
 app.use("/payment", payment);
