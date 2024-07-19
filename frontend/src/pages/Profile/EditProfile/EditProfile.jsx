@@ -195,7 +195,7 @@ export default function EditProfile({ user, loggedInUser }) {
             {loggedInUser?.dob ? (
               <h2>{loggedInUser.dob}</h2>
             ) : (
-              <h2>{dob ? dob : "Add your date of birth"}</h2>
+              <h2>{dob ? dob : t("Add your date of birth")}</h2>
             )}
             <div className="last-btn">
               <h2>{t("Switch to professional")} </h2>
