@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import commonjs from "vite-plugin-commonjs";
-import dotenv from "dotenv";
 
 export default defineConfig({
   plugins: [
@@ -14,12 +13,7 @@ export default defineConfig({
   ],
   define: {
     // Inject process.env variables
-    "process.env": Object.keys(process.env).reduce((env, key) => {
-      if (key.startsWith("VITE_")) {
-        env[key] = JSON.stringify(process.env[key]);
-      }
-      return env;
-    }, {}),
+    "process.env": JSON.stringify(import.meta.env),
     global: "globalThis",
   },
   resolve: {
