@@ -22,6 +22,7 @@ const port = process.env.PORT;
 app.use(
   cors({
     origin: "https://xwiitter.netlify.app",
+      "https://main--xwiitter.netlify.app"
   })
 );
 app.use(express.json());
