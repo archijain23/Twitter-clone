@@ -25,6 +25,9 @@ app.use(
   })
 );
 app.use(express.json());
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist"));
+});
 app.use(
   express.static("public", {
     setHeaders: (res, path, stat) => {
@@ -35,9 +38,6 @@ app.use(
   })
 );
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist"));
-});
 
 connectToMongo();
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.resic4t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
