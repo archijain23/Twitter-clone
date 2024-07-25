@@ -15,7 +15,7 @@ const razorpayInstance = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-//// ROUTE 1 : Create Order Api Using POST Method http://localhost:5000/api/payment/subscribe
+//// ROUTE 1 : Create Order Api Using POST Method https://twitter-clone-xylb.onrender.com/api/payment/subscribe
 router.post("/subscribe", (req, res) => {
   const { amount } = req.body;
 
@@ -40,7 +40,7 @@ router.post("/subscribe", (req, res) => {
   }
 });
 
-// ROUTE 2 : Create Verify Api Using POST Method http://localhost:5000/api/payment/verify
+// ROUTE 2 : Create Verify Api Using POST Method https://twitter-clone-xylb.onrender.com/api/payment/verify
 router.post("/verify", async (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature, userId } =
     req.body;

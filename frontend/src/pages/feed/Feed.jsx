@@ -9,7 +9,7 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/posts", {
+    fetch("https://twitter-clone-xylb.onrender.com/posts", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
