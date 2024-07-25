@@ -19,12 +19,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
-app.use(
-  cors({
-    origin: "https://xwiitter.netlify.app",
-      "https://main--xwiitter.netlify.app"
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist"));
